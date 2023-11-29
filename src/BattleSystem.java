@@ -1,6 +1,36 @@
+import java.util.Collections;
+import java.util.List;
+import java.util.Scanner;
+
 public class BattleSystem extends StateMachine{
-    public BattleSystem(){
-        setState(new TestState(this));
+    List<Character> characters;
+    private int currentTurn = -1;
+    public BattleSystem(List<Character> characters){
+        this.characters = characters;
+        setState(new BattleStart(this));
+    }
+
+    public void turnOrder(){
+        Collections.sort(characters);
+        System.out.println("Current turn order: ");
+        int list = 1;
+        for(Character chara : characters){
+            System.out.println(list + ". " + chara);
+            list++;
+        }
+        list = 1;
+    }
+
+    public void incrementTurn(){
+        if(currentTurn+1 > characters.size()-1){
+            currentTurn = 0;
+        }else {
+            currentTurn++;
+        }
+    }
+
+    public int getCurrentTurn(){
+        return currentTurn;
     }
 
 }

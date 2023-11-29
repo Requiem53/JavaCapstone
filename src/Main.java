@@ -4,17 +4,19 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
         Character char1 = new Character("Maurice");
-        Character char2 = new Character("Jorash", 100, 25,20, 15);
-        Character char3 = new Character("Van", 200, 25,25, 20);
-        Character char4 = new Character("Slamm", 1, 1,1, 1);
+        Character char2 = new Character("Jorash", 100, 25,20, 15, true);
+        Character char3 = new Character("Van", 200, 25,25, 20, true);
+        Character char4 = new Character("Slamm", 1, 1,1, 1, true);
 
-        List<Character> players = new ArrayList<>();
-        players.add(char1);
-        players.add(char2);
-        players.add(char3);
-        players.add(char4);
+        Character enemyTest = new Character("Ugang", 1, 1,1, 16, false);
+        List<Character> characters = new ArrayList<>();
+        characters.add(char1);
+        characters.add(char2);
+        characters.add(char3);
+        characters.add(char4);
+        characters.add(enemyTest);
 
-        BattleSystem bs = new BattleSystem();
+        BattleSystem bs = new BattleSystem(characters);
 
     }
 }
