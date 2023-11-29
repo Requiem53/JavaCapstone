@@ -1,17 +1,21 @@
-// Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
-// then press Enter. You can now see whitespace characters in your code.
+import java.util.ArrayList;
+import java.util.List;
+
 public class Main {
     public static void main(String[] args) {
-        // Press Alt+Enter with your caret at the highlighted text to see how
-        // IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        Character char1 = new Character("Maurice");
+        Character char2 = new Character("Jorash", 100, 25,20, 15);
+        Character char3 = new Character("Van", 200, 25,25, 20);
+        Character char4 = new Character("Slamm", 1, 1,1, 1);
 
-        // Press Shift+F10 or click the green arrow button in the gutter to run the code.
-        for (int i = 1; i <= 5; i++) {
+        List<Character> players = new ArrayList<>();
+        players.add(char1);
+        players.add(char2);
+        players.add(char3);
+        players.add(char4);
 
-            // Press Shift+F9 to start debugging your code. We have set one breakpoint
-            // for you, but you can always add more by pressing Ctrl+F8.
-            System.out.println("i = " + i);
+        for(Character chara : players){
+            chara.currentDetails();
         }
     }
 }
