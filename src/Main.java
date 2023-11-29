@@ -14,8 +14,7 @@ public class Main {
         players.add(char3);
         players.add(char4);
 
-        for(Character chara : players){
-            chara.currentDetails();
-        }
+        BattleSystem bs = new BattleSystem();
+
     }
 }
