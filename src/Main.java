@@ -3,12 +3,12 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        Character char1 = new Character("Maurice");
-        Character char2 = new Character("Jorash", 100, 25,20, 15, true);
-        Character char3 = new Character("Van", 200, 25,25, 20, true);
-        Character char4 = new Character("Slamm", 1, 1,1, 1, true);
+        Character.Ally char1 = new Character.Ally("Maurice",100, 25,20, 15);
+        Character.Ally char2 = new Character.Ally("Jorash", 100, 25,20, 15);
+        Character.Ally char3 = new Character.Ally("Van", 200, 25,25, 20);
+        Character.Ally char4 = new Character.Ally("Slamm", 1, 1,1, 1);
 
-        Character enemyTest = new Character("Ugang", 1, 1,1, 16, false);
+        Character.Enemy enemyTest = new Character.Enemy("Ugang", 1, 1,1, 16);
         List<Character> characters = new ArrayList<>();
         characters.add(char1);
         characters.add(char2);
@@ -17,6 +17,5 @@ public class Main {
         characters.add(enemyTest);
 
         BattleSystem bs = new BattleSystem(characters);
-
     }
 }

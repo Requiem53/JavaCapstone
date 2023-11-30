@@ -3,11 +3,17 @@ import java.util.List;
 import java.util.Scanner;
 
 public class BattleSystem extends StateMachine{
-    List<Character> characters;
+    private List<Character> characters;
+
+    public List<Character> getCharacters() {
+        return characters;
+    }
+
     private int currentTurn = -1;
+
     public BattleSystem(List<Character> characters){
         this.characters = characters;
-        setState(new BattleStart(this));
+        setState(new State.BattleStart(this));
     }
 
     public void turnOrder(){
