@@ -3,6 +3,8 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
+        //Add character creator
+
         Character.Ally char1 = new Character.Ally("Maurice",100, 25,20, 15);
         Character.Ally char2 = new Character.Ally("Jorash", 100, 25,20, 15);
         Character.Ally char3 = new Character.Ally("Van", 200, 25,25, 20);
