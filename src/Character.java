@@ -80,5 +80,10 @@ public abstract class Character implements Comparable<Character> {
             super(name, maxHealth, maxMana, power, speed);
             setPlayable(false);
         }
+
+        public void attackRandom(Character randomTarget){
+            Action action = new Action.Attack(randomTarget);
+            action.execute(this);
+        }
     }
 }

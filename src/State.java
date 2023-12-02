@@ -118,6 +118,7 @@ public abstract class State {
 
                System.out.println("What will " + getCurrChar() + " do?");
                option = sc.nextLine();
+               Action action;
                switch (option){
                     case "Exit":
                          break;
@@ -155,12 +156,8 @@ public abstract class State {
 
                          Character targeted = enemies.get(target-1);
 
-                         System.out.println(getCurrChar() + " dealt " + getCurrChar().attack(targeted) + " damage to "
-                                 + targeted + "!");
-                         if(!targeted.isAlive()){
-                              System.out.println(targeted + " died from the blow!");
-                              enemies.remove(targeted);
-                         }
+                         action = new Action.Attack(targeted);
+                         action.execute(getCurrChar());
                          newTurn();
                          break;
                     default:
