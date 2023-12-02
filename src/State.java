@@ -7,18 +7,17 @@ public abstract class State {
      protected BattleSystem bs;
      protected String option;
      protected Scanner sc;
-     protected static List<Character> allies = new ArrayList<>();
-     protected static List<Character> enemies = new ArrayList<>();
-     protected Character getCurrChar(){
-          return bs.getCharacters().get(bs.getCurrentTurn());
-     }
+
+     public abstract void Start();
+
      protected void newTurn(){
+          bs.dequeue();
           bs.setState(new Turn(bs));
      }
 
      protected void deadValidate(){
-          if(!getCurrChar().isAlive()){
-               System.out.println(getCurrChar() + " is already dead!");
+          if(bs.currChar().isAlive()){
+               System.out.println(bs.currChar() + " is already dead!");
                newTurn();
           }
      }
@@ -32,7 +31,9 @@ public abstract class State {
           return bs;
      }
 
-     public abstract void Start();
+     public Character getTargeted(int target){
+          return bs.getEnemies().get(target-1);
+     }
 
      //States
      public static class BattleStart extends State{
@@ -42,16 +43,9 @@ public abstract class State {
 
           @Override
           public void Start() {
+               bs.initializeBattle();
                System.out.println("The battle is starting....");
-               bs.turnOrder();
-               for(Character chara : bs.getCharacters()){
-                    if(chara instanceof Character.Enemy){
-                         enemies.add(chara);
-                    }else{
-                         allies.add(chara);
-                    }
-               }
-               newTurn();
+               bs.setState(new Turn(bs));
           }
      }
 
@@ -66,7 +60,7 @@ public abstract class State {
                boolean victory = false;
                boolean defeat = false;
 
-               for(Character enemy : enemies){
+               for(Character enemy : bs.getEnemies()){
                     if(enemy.isAlive()){
                          victory = false;
                          break;
@@ -74,7 +68,7 @@ public abstract class State {
                     victory = true;
                }
 
-               for(Character ally : allies){
+               for(Character ally : bs.getAllies()){
                     if(ally.isAlive()){
                          defeat = false;
                          break;
@@ -96,14 +90,15 @@ public abstract class State {
                     return;
                }
 
-               bs.incrementTurn();
-
-               if(!(getCurrChar() instanceof Character.Enemy)){
-                    bs.setState(new PlayerTurn(bs));
-               } else {
-                    bs.setState(new EnemyTurn(bs));
+               if(!bs.currChar().isAlive()){
+                    deadValidate();
+               }else {
+                    if(!(bs.currChar() instanceof Character.Enemy)){
+                         bs.setState(new PlayerTurn(bs));
+                    } else {
+                         bs.setState(new EnemyTurn(bs));
+                    }
                }
-
           }
      }
 
@@ -114,22 +109,23 @@ public abstract class State {
 
           @Override
           public void Start() {
-               deadValidate();
-
-               System.out.println("What will " + getCurrChar() + " do?");
+               System.out.println("What will " + bs.currChar() + " do?");
                option = sc.nextLine();
-               Action action;
                switch (option){
                     case "Exit":
                          break;
+                    case "View Order":
+                         System.out.println(bs.getTurnOrder());
+                         newTurn();
+                         break;
                     case "List Allies":
                          System.out.println("Allies: ");
-                         for(Character chara : allies){
+                         for(Character chara : bs.getAllies()){
                               System.out.println(chara);
                          }
 
                          System.out.println("Enemies: ");
-                         for(Character chara : enemies){
+                         for(Character chara : bs.getEnemies()){
                               System.out.println(chara);
                          }
                          newTurn();
@@ -145,7 +141,7 @@ public abstract class State {
                          int list = 1;
                          int target;
 
-                         for(Character enemy : enemies){
+                         for(Character enemy : bs.getEnemies()){
                               if(enemy.isAlive()){
                                    System.out.println(list + ". " + enemy);
                                    list++;
@@ -154,10 +150,10 @@ public abstract class State {
                          System.out.println("Enter number: ");
                          target = sc.nextInt();
 
-                         Character targeted = enemies.get(target-1);
+                         System.out.println(bs.currChar() + " dealt " +
+                                 bs.currChar().attack(getTargeted(target)) + " damage to " +
+                                 getTargeted(target) + "! ");
 
-                         action = new Action.Attack(targeted);
-                         action.execute(getCurrChar());
                          newTurn();
                          break;
                     default:
@@ -174,8 +170,7 @@ public abstract class State {
 
           @Override
           public void Start() {
-               deadValidate();
-               System.out.println(getCurrChar() + " is wondering about what they " +
+               System.out.println(bs.currChar() + " is wondering about what they " +
                        "will do next....");
                newTurn();
           }

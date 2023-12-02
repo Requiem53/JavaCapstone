@@ -1,3 +1,5 @@
+import java.util.Comparator;
+
 public abstract class Character implements Comparable<Character> {
     //pun an guro spells pero I guess sakto na ang weapons
     //simple only
@@ -79,11 +81,6 @@ public abstract class Character implements Comparable<Character> {
         public Enemy(String name, int maxHealth, int maxMana, int power, int speed) {
             super(name, maxHealth, maxMana, power, speed);
             setPlayable(false);
-        }
-
-        public void attackRandom(Character randomTarget){
-            Action action = new Action.Attack(randomTarget);
-            action.execute(this);
         }
     }
 }
