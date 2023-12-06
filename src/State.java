@@ -11,9 +11,16 @@ public abstract class State {
      protected Scanner sc;
      protected static List<Character> allies = new ArrayList<>();
      protected static List<Character> enemies = new ArrayList<>();
+
+     public State(BattleSystem bs){
+          this.bs = bs;
+          sc = new Scanner(System.in);
+     }
+
      protected Character getCurrChar(){
           return bs.getCharacters().get(bs.getCurrentTurn());
      }
+
      protected void newTurn(){
           bs.setState(new Turn(bs));
      }
@@ -25,10 +32,6 @@ public abstract class State {
           }
      }
 
-     public State(BattleSystem bs){
-          this.bs = bs;
-          sc = new Scanner(System.in);
-     }
 
      public BattleSystem getBs() {
           return bs;
@@ -182,8 +185,42 @@ public abstract class State {
                deadValidate();
                System.out.println(getCurrChar() + " is wondering about what they " +
                        "will do next....");
+
+
+               attackAlly();
+
                newTurn();
           }
+
+          private Character checkLowestHpAlly() {
+               Character lowestHPChar = allies.get(0);
+
+               for(Character currChar : allies) {
+                    if(currChar.getCurrHealth() < lowestHPChar.getCurrHealth()
+                            && currChar.getCurrHealth() != 0) {
+
+                         lowestHPChar = currChar;
+                    }
+               }
+
+               return lowestHPChar;
+          }
+
+
+          private void attackAlly() {
+               Character target = checkLowestHpAlly();
+               Character currMover = getCurrChar();
+
+               target.takeDamage(currMover.attack(target));
+
+               System.out.println(target + " takes " + currMover.getPower() + " damage!");
+          }
+
+          // check possible moves
+          // ATTACK A PLAYER
+          // USE SPELL TO ATTACK
+          // USE SPELL TO INFLICT STATUS
+          // USE SPELL TO HEAL SELF
      }
 
 }
