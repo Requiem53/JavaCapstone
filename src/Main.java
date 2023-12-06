@@ -5,13 +5,13 @@ public class Main {
     public static void main(String[] args) {
         //Add character creator
 
-        Character.Ally char1 = new Character.Ally("Maurice",100, 25,20, 15);
-        Character.Ally char2 = new Character.Ally("Jorash", 100, 25,20, 15);
-        Character.Ally char3 = new Character.Ally("Van", 200, 25,25, 20);
-        Character.Ally char4 = new Character.Ally("Slamm", 1, 1,1, 1);
+        Character.Ally char1 = new Character.Ally("Maurice", new CharacterClass.Warrior());
+        Character.Ally char2 = new Character.Ally("Jorash", new CharacterClass.Warrior());
+        Character.Ally char3 = new Character.Ally("Van", new CharacterClass.Warrior());
+        Character.Ally char4 = new Character.Ally("Slamm", new CharacterClass.Warrior());
 
-        Character.Enemy enemyTest = new Character.Enemy("Ugang", 1, 1,1, 16);
-        Character.Enemy enemyTest2 = new Character.Enemy("Big Mom", 1, 1,1, 16);
+        Character.Enemy enemyTest = new Character.Enemy("Ugang", new CharacterClass.Warrior());
+        Character.Enemy enemyTest2 = new Character.Enemy("Big Mom", new CharacterClass.Warrior());
         List<Character> characters = new ArrayList<>();
         characters.add(char1);
         characters.add(char2);
