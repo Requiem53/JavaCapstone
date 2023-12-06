@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class BattleSystem extends StateMachine{
     private List<Character> characters;
 
+    // tes commit naguba
     public List<Character> getCharacters() {
         return characters;
     }
